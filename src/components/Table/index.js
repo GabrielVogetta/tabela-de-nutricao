@@ -6,15 +6,16 @@ import api from '../../api/index';
 
 export default function Table() {
   const { people, setPeople } = usePeople();
-
-  useEffect(() => {
-    getData();
-  }, [])
-
+  
   const getData = async () => {
     const data = await api.get();
     setPeople(data);
   }
+  
+  useEffect(() => {
+    getData();
+  }, [getData])
+
 
   return (
     <table className="table">
