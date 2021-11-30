@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import MainHeader from './components/MainHeader';
+import Table from './components/Table';
+import AddPersonModal from './components/AddPersonModal';
+import StoreProvider from './components/context/Store';
+import PeopleProvider from './components/context/People';
 
 function App() {
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+
+      <StoreProvider>
+
+        <MainHeader onAdd={() => {setIsModalOpen(!isModalOpen)}}/>
+
+        <PeopleProvider>
+          <Table/>        
+          <AddPersonModal isOpen={isModalOpen}/>
+        </PeopleProvider>
+
+      
+      </StoreProvider> 
+
     </div>
   );
 }
