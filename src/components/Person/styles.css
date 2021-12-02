@@ -1,0 +1,43 @@
+.bmi-td{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30%;
+}
+
+@media (min-width: 600px){
+    .bmi-td{
+        padding-left: 40%;
+    }
+}
+
+.opts-button, .delete-button{
+    color: var(--primary);
+    padding: 5px;
+}
+
+.delete-button{
+    width: 100%;
+    background-color: transparent;
+    color: var(--white);
+}
+
+.opts-button{
+    background-color: transparent;
+}
+
+.opts{
+    width: 100px;
+    background-color: var(--secondary);
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 999;
+}
+
+.opts-open{
+    transform: rotate(90deg);
+}

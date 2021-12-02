@@ -1,29 +1,18 @@
-import React, {useEffect} from "react";
+import React from "react";
 import "./styles.css";
 import Person from "../Person";
 import { usePeople } from "../context/People";
-import api from '../../api/index';
 
 export default function Table() {
-  const { people, setPeople } = usePeople();
-  
-  const getData = async () => {
-    const data = await api.get();
-    setPeople(data);
-  }
-  
-  useEffect(() => {
-    getData();
-  }, [getData])
-
+  const { people } = usePeople();
 
   return (
     <table className="table">
       <thead className="t-head">
         <tr>
           <th>Nome</th>
-          <th>Peso</th>
-          <th>Altura</th>
+          <th>Peso kg</th>
+          <th>Altura m</th>
           <th>IMC</th>
         </tr>
       </thead>
@@ -31,6 +20,7 @@ export default function Table() {
         {people.map((person, index) => (
           <Person
             key={index}
+            id={index}
             name={person.name}
             weight={person.weight}
             height={person.height}

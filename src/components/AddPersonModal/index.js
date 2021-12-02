@@ -1,82 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
-import { useStore } from "../context/Store";
+import { useModal } from "../context/Modal";
 import { usePeople } from '../context/People';
-import api from '../../api';
 
 export default function AddPersonModal() {
-  const [newPerson, setNewPerson] = useState({
-    name: "",
-    weight: null,
-    height: null,
-    bmi: null,
-  });
 
-  const {isModalOpen, setIsModalOpen} = useStore();
+  const [name, setName] = useState('');
+  const [weight, setWeight] = useState('');
+  const [height, setHeight] = useState('');
 
+  const {modal, setModal} = useModal();
   const {people, setPeople} = usePeople();
 
-  const handleChange = ({ target: { name, value } }) => {
-    const newState = newPerson;
-    newState[name] = value;
-
-    newState.bmi = calculateBmi().toFixed(2);
-
-    setNewPerson(newState);
-  };
+  useEffect(() => {
+    setName(modal.name);
+    setWeight(modal.weight);
+    setHeight(modal.height);
+  }, [modal])
 
   const calculateBmi = () => {
-    const bmi = newPerson.weight / Math.pow(newPerson.height, 2);
+    const bmi = weight / Math.pow(height, 2);
     return bmi;
   }
 
   return (
-    <div className="add-person-modal" style={{display: isModalOpen ? 'block' : 'none'}}>
+    <div className="add-person-modal" style={{display: modal.isOpen ? 'block' : 'none'}}>
 
       <button className='close-modal-button'
-        onClick={() => {setIsModalOpen(false)}}
+        onClick={() => {setModal({...modal, isOpen: false})}}
       >
         Close
       </button>
 
       <form className="add-person-form" onSubmit={e => {
         e.preventDefault();
-        setPeople([...people, newPerson]);
-        setIsModalOpen(false);
-        api.post(newPerson);
-        setNewPerson({});
+        const bmi = calculateBmi().toFixed(2);
+
+        if(modal.func === 'Adicionar'){
+          setPeople([...people, {name, weight, height, bmi}]);
+        }else{
+          const newState = people.map((person, index) => {
+            if(index === modal.id){
+              return {name, weight, height, bmi};
+            }else{
+              return person;
+            }
+          });
+          setPeople(newState);
+        }
+
+        setModal({...modal, isOpen: false});
       }}>
         <input
           name="name"
           className="new-person-input"
           placeholder="Nome"
           type='text'
-          value={newPerson.name}
-          onChange={handleChange}
+          value={name}
+          onChange={e => {setName(e.target.value)}}
         />
         <input
+          value={weight}
           name="weight"
           type='number'
           step="any"
           required
           className="new-person-input"
           placeholder="Peso kg"
-          onChange={handleChange}
+          onChange={e => {setWeight(e.target.value)}}
         />
         <input
+          value={height}
           name="height"
           type='number'
           step="any"
           required
           className="new-person-input"
           placeholder="Altura m"
-          onChange={handleChange}
+          onChange={e => {setHeight(e.target.value)}}
         />
         <button
           type="submit"
           className="add-person-button"
         >
-          Adiconar
+          {modal.func}
         </button>
       </form>
     </div>

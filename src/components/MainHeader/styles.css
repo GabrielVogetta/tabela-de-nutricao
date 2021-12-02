@@ -6,6 +6,12 @@
   padding: 10px 20px;
 }
 
+@media (min-width: 600px) {
+  .main-header{
+    padding: 10px 100px;
+  }
+}
+
 .add-button{
     padding: 10px;
     border: 0;
