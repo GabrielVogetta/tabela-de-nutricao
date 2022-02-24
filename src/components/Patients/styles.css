@@ -1,0 +1,19 @@
+.patients{
+    width: 90%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media(min-width: 600px){
+    .patients{
+        width: 80%;
+    }
+}
+
+@media(min-width: 1200px){
+    .patients{
+        width: 60%;
+    }
+}

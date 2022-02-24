@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { useModal } from "../context/Modal";
 import { usePeople } from '../context/People';
+import {supabase} from '../../services/supabase';
 
 export default function AddPersonModal() {
 
@@ -23,6 +24,43 @@ export default function AddPersonModal() {
     return bmi;
   }
 
+
+  const updatePatient = async (id) => {
+    const { data, error } = await supabase
+    .from('patients')
+    .update({
+      name,
+      weight,
+      height,
+      bmi: calculateBmi().toFixed(2)
+    })
+    .match({ id: id })
+
+    if(error){
+      console.log('HOUVE UM ERRO!');
+      console.log(error);
+    }
+
+    console.log('PACIENTE EDITADO!');
+    console.log(data);
+  }
+
+  const insertPatient = async () => {
+    const { data, error } = await supabase
+      .from('patients')
+      .insert([
+        {name, weight, height, bmi: calculateBmi().toFixed(2)}
+    ])
+
+    if(error){
+      console.log('HOUVE UM ERRO!');
+      console.log(error);
+    }
+
+    console.log('PACIENTE ADICIONADO!');
+    console.log(data);
+  }
+
   return (
     <div className="add-person-modal" style={{display: modal.isOpen ? 'block' : 'none'}}>
 
@@ -32,24 +70,34 @@ export default function AddPersonModal() {
         Close
       </button>
 
-      <form className="add-person-form" onSubmit={e => {
+      <form className="add-person-form" onSubmit={async e => {
         e.preventDefault();
         const bmi = calculateBmi().toFixed(2);
 
         if(modal.func === 'Adicionar'){
+
+          //INSERT
           setPeople([...people, {name, weight, height, bmi}]);
+
+          insertPatient({name, weight, height, bmi});
+        
         }else{
+
+          // UPDATE
           const newState = people.map((person, index) => {
-            if(index === modal.id){
+            if(person.id === modal.id){
               return {name, weight, height, bmi};
             }else{
               return person;
             }
           });
+
+          updatePatient(modal.id);
           setPeople(newState);
         }
 
         setModal({...modal, isOpen: false});
+
       }}>
         <input
           name="name"

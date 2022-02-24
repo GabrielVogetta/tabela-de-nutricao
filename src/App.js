@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import MainHeader from './components/MainHeader';
-import Table from './components/Table';
+import Patients from './components/Patients';
 import AddPersonModal from './components/AddPersonModal';
 import ModalProvider from './components/context/Modal';
 import PeopleProvider from './components/context/People';
@@ -18,7 +18,7 @@ function App() {
         <MainHeader onAdd={() => {setIsModalOpen(!isModalOpen)}}/>
 
         <PeopleProvider>
-          <Table/> 
+          <Patients/> 
           <AddPersonModal isOpen={isModalOpen}/>
         </PeopleProvider>
       

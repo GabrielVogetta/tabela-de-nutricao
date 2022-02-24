@@ -27,3 +27,7 @@ input, button{
 body{
     background-color: var(--primary);
 }
+
+ul{
+    list-style: none;
+}
