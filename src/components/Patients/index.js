@@ -1,14 +1,14 @@
 import React from "react";
 import "./styles.css";
 import Patient from "../Patient";
-import { usePeople } from "../context/People";
+import { useSearch } from "../context/Search";
 
 export default function Patients() {
-  const { people } = usePeople();
+  const { search } = useSearch();
 
   return (
     <ul className="patients">
-        {people.map((person, index) => (
+        {search.map((person) => (
           <li key={person.id}>
             <Patient
               id={person.id}

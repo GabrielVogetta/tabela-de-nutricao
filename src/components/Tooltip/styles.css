@@ -1,0 +1,41 @@
+.opts{
+    position: absolute;
+    right: 0;
+    justify-self: flex-end;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.opts-button{
+    background-color: transparent;
+    padding: 0;
+}
+
+.menu-icon{
+    width: 20px;
+    height: 20px;
+}
+.tooltip{
+    width: 100px;
+    background-color: #212F3C;
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 999;
+}
+
+.tooltip-button{
+    width: 100%;
+    background-color: transparent;
+    color: var(--white);
+    padding: 5px;
+}
+
+@media (min-width: 600px){
+    .menu-icon{
+        width: 30px;
+        height: 30px;
+    }
+}

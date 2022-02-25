@@ -1,19 +1,59 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import './styles.css';
-import {useModal} from '../context/Modal';
+import {usePeople} from '../context/People';
+import {useSearch} from '../context/Search';
 
 export default function MainHeader(){
 
-    const {setModal} = useModal();
+    const {people} = usePeople();
+    const {setSearch} = useSearch();
+
+    const [isSearching, setIsSearching] = useState(false);
+    const [query, setQuery] = useState('');
+
+    const lowerQuery = query.toLowerCase();
+
+    useEffect(() => {
+        const newSearch = people.filter(person => 
+            person.name.toLowerCase().includes(lowerQuery)
+        );
+        
+        setSearch(newSearch);
+            
+        if(query === ''){
+            setSearch(people);
+        }
+        
+    }, [query, lowerQuery, setSearch, people]);
 
     return(
         <header className='main-header'>
             <h1 className='page-title'>Tabela de Nutrição</h1>
-            <button onClick={() => {
 
-                setModal({isOpen: true, func: 'Adicionar', name: '', weight: '', height: '', id: ''});
-
-            }} className='add-button'>Adicionar</button>
+            {
+                !isSearching &&
+                
+                <button className='search-button' onClick={() => {setIsSearching(true)}}>
+                    Busca
+                </button>
+            }
+            {
+                isSearching && 
+                
+                <input
+                    className='search-input'
+                    value={query}
+                    onChange={e => {
+                        setQuery(e.target.value);
+                    }}
+                    onKeyDown={e => {
+                        if(e.key === 'Enter'){
+                            setIsSearching(false);
+                        }
+                    }}
+                />
+            }
+        
         </header>
     );
 }

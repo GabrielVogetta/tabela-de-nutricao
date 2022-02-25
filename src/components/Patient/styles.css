@@ -10,47 +10,12 @@
 
 .patient_info{
     text-align: center;
-    padding: 20px 0;
+    padding: 15px 0;
+    font-size: 14px;
 }
 
 .patient_info span{
     font-size: 10px;
-}
-
-.opts{
-    position: absolute;
-    right: 0;
-    justify-self: flex-end;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-
-.opts-button, .delete-button{
-    color: var(--primary);
-    padding: 5px;
-}
-
-.delete-button{
-    width: 100%;
-    background-color: transparent;
-    color: var(--white);
-}
-
-.opts-button{
-    background-color: transparent;
-    padding: 0;
-}
-
-.tooltip{
-    width: 100px;
-    background-color: #212F3C;
-    position: absolute;
-    right: 10px;
-    top: 40px;
-    padding: 10px;
-    border-radius: 8px;
-    z-index: 999;
 }
 
 @media (min-width: 600px){

@@ -6,16 +6,29 @@
   padding: 10px 20px;
 }
 
+.page-title{
+  font-size: 20px;
+}
+
+.search-button{
+  padding: 10px;
+  background-color: var(--primary);
+}
+
+.search-input{
+  background-color: var(--primary);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+
 @media (min-width: 600px) {
   .main-header{
     padding: 10px 100px;
   }
-}
 
-.add-button{
-    padding: 10px;
-    border: 0;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: var(--primary);
+  .page-title{
+    font-size: 30px;
+  }
 }
