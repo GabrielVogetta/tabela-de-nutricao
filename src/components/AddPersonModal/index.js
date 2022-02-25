@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { useModal } from "../context/Modal";
-import { usePeople } from '../context/People';
+import { usePatients } from '../context/Patients';
 import {supabase} from '../../services/supabase';
 
 export default function AddPersonModal() {
@@ -11,7 +11,7 @@ export default function AddPersonModal() {
   const [height, setHeight] = useState('');
 
   const {modal, setModal} = useModal();
-  const {people, setPeople} = usePeople();
+  const {patients, setPatients} = usePatients();
 
   useEffect(() => {
     setName(modal.name);
@@ -77,14 +77,14 @@ export default function AddPersonModal() {
         if(modal.func === 'Adicionar'){
 
           //INSERT
-          setPeople([...people, {name, weight, height, bmi}]);
+          setPatients([...patients, {name, weight, height, bmi}]);
 
           insertPatient({name, weight, height, bmi});
         
         }else{
 
           // UPDATE
-          const newState = people.map((person, index) => {
+          const newState = patients.map((person, index) => {
             if(person.id === modal.id){
               return {name, weight, height, bmi};
             }else{
@@ -93,7 +93,7 @@ export default function AddPersonModal() {
           });
 
           updatePatient(modal.id);
-          setPeople(newState);
+          setPatients(newState);
         }
 
         setModal({...modal, isOpen: false});

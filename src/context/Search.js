@@ -1,13 +1,13 @@
 import { createContext, useState, useContext } from "react";
-import { usePeople } from "./People";
+import { usePatients } from "./Patients";
 
 const SearchContext = createContext();
 
 export default function SearchProvider({children}){
 
-    const {people} = usePeople();
+    const {patients} = usePatients();
     
-    const [search, setSearch] = useState(people);
+    const [search, setSearch] = useState(patients);
 
     return(
         <SearchContext.Provider value={{search, setSearch}}>

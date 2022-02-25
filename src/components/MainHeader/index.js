@@ -1,30 +1,31 @@
 import {useState, useEffect} from 'react';
 import './styles.css';
-import {usePeople} from '../context/People';
+import {usePatients} from '../context/Patients';
 import {useSearch} from '../context/Search';
 
 export default function MainHeader(){
 
-    const {people} = usePeople();
+    const {patients} = usePatients();
     const {setSearch} = useSearch();
 
     const [isSearching, setIsSearching] = useState(false);
     const [query, setQuery] = useState('');
 
+
     const lowerQuery = query.toLowerCase();
 
     useEffect(() => {
-        const newSearch = people.filter(person => 
+        const newSearch = patients.filter(person => 
             person.name.toLowerCase().includes(lowerQuery)
         );
         
         setSearch(newSearch);
             
         if(query === ''){
-            setSearch(people);
+            setSearch(patients);
         }
         
-    }, [query, lowerQuery, setSearch, people]);
+    }, [query, lowerQuery, setSearch, patients]);
 
     return(
         <header className='main-header'>
@@ -33,7 +34,11 @@ export default function MainHeader(){
             {
                 !isSearching &&
                 
-                <button className='search-button' onClick={() => {setIsSearching(true)}}>
+                <button 
+                    className='search-button' 
+                    onClick={() => {
+                        setIsSearching(true);
+                    }}>
                     Busca
                 </button>
             }
@@ -41,6 +46,10 @@ export default function MainHeader(){
                 isSearching && 
                 
                 <input
+                    onBlur={() => {
+                        setIsSearching(false);
+                    }}
+                    autoFocus
                     className='search-input'
                     value={query}
                     onChange={e => {

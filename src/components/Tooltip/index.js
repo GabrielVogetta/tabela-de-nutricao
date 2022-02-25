@@ -2,18 +2,18 @@ import { useState } from "react";
 import menuSVG from '../../assets/menu.svg';
 import './styles.css';
 import {useModal} from '../../components/context/Modal';
-import {usePeople} from '../../components/context/People';
+import {usePatients} from '../../components/context/Patients';
 import { supabase } from "../../services/supabase";
 
 export default function Tooltip({name, weight, height, id}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const {setModal} = useModal();
-  const {people, setPeople} = usePeople();
+  const {patients, setPatients} = usePatients();
 
   const onDelete = async () => {
-    const newPeople = people.filter(person => person.id !== id);
-    setPeople(newPeople);
+    const newPatients = patients.filter(person => person.id !== id);
+    setPatients(newPatients);
 
     const { data, error } = await supabase
     .from('patients')

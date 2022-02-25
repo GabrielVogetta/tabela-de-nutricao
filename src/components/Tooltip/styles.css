@@ -4,6 +4,7 @@
     justify-self: flex-end;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 900;
 }
 
 .opts-button{
@@ -19,11 +20,11 @@
     width: 100px;
     background-color: #212F3C;
     position: absolute;
-    right: 10px;
-    top: 40px;
+    right: 15px;
+    top: 35px;
     padding: 10px;
     border-radius: 8px;
-    z-index: 999;
+    z-index: 800;
 }
 
 .tooltip-button{

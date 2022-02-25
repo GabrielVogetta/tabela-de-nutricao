@@ -7,6 +7,13 @@ export default function Patient({ name, weight, height, bmi, id }) {
   return (
     <div className='patient'>
 
+      <Tooltip
+        name={name}
+        weight={weight}
+        height={height}
+        id={id}
+      />
+
       <div className='patient_info'>
         <span>Nome</span>  
         <p>{name}</p>
@@ -26,14 +33,6 @@ export default function Patient({ name, weight, height, bmi, id }) {
         <span>Imc</span>  
         <p>{bmi}</p>
       </div>
-
-
-      <Tooltip
-        name={name}
-        weight={weight}
-        height={height}
-        id={id}
-      />
 
       </div>
   );

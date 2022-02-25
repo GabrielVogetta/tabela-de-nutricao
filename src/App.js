@@ -4,7 +4,7 @@ import MainHeader from './components/MainHeader';
 import Patients from './components/Patients';
 import AddPersonModal from './components/AddPersonModal';
 import ModalProvider, {useModal} from './components/context/Modal';
-import PeopleProvider from './components/context/People';
+import PatientsProvider from './components/context/Patients';
 import SearchProvider from './components/context/Search';
 import plusSVG from './assets/plus.svg';
 
@@ -34,16 +34,18 @@ function App() {
 
       <ModalProvider>
 
-        <PeopleProvider>
+        <PatientsProvider>
           <SearchProvider>
 
-            <MainHeader onAdd={() => {setIsModalOpen(!isModalOpen)}}/>
 
-            <Patients/> 
+            <Patients/>
+
+            <MainHeader onAdd={() => {setIsModalOpen(!isModalOpen)}}/>
+            
             <AddPersonModal isOpen={isModalOpen}/>
         
           </SearchProvider>
-        </PeopleProvider>
+        </PatientsProvider>
 
         <AddPatientButton/>
       
