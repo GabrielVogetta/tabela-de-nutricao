@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 import Patient from "../Patient";
-import { useSearch } from "../context/Search";
+import { useSearch } from "../../context/Search";
 
 export default function Patients() {
   const { search } = useSearch();

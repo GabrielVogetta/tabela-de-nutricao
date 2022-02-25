@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-import { useModal } from "../context/Modal";
-import { usePatients } from '../context/Patients';
+import { useModal } from "../../context/Modal";
+import { usePatients } from '../../context/Patients';
 import {supabase} from '../../services/supabase';
 
 export default function AddPersonModal() {

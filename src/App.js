@@ -3,9 +3,9 @@ import './App.css';
 import MainHeader from './components/MainHeader';
 import Patients from './components/Patients';
 import AddPersonModal from './components/AddPersonModal';
-import ModalProvider, {useModal} from './components/context/Modal';
-import PatientsProvider from './components/context/Patients';
-import SearchProvider from './components/context/Search';
+import ModalProvider, {useModal} from './context/Modal';
+import PatientsProvider from './context/Patients';
+import SearchProvider from './context/Search';
 import plusSVG from './assets/plus.svg';
 
 function AddPatientButton(){

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import menuSVG from '../../assets/menu.svg';
 import './styles.css';
-import {useModal} from '../../components/context/Modal';
-import {usePatients} from '../../components/context/Patients';
+import {useModal} from '../../context/Modal';
+import {usePatients} from '../../context/Patients';
 import { supabase } from "../../services/supabase";
 
 export default function Tooltip({name, weight, height, id}) {

@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import './styles.css';
-import {usePatients} from '../context/Patients';
-import {useSearch} from '../context/Search';
+import {usePatients} from '../../context/Patients';
+import {useSearch} from '../../context/Search';
 
 export default function MainHeader(){
 
