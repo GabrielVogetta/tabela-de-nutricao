@@ -2,7 +2,23 @@
     --primary: #222;
     --secondary: rgb(59, 59, 59);
     --white: #fdfdfd;
+    --light-gray: #808080;
+
+    --yellow: #F1C40F;
+    --green: #2ECC71;
+    --orange: #F39C12;
+    --red: #E74C3C;
+
+    --blue: #2980B9;
+    --purple: #9B59B6;
 }
+
+.yellow{color: var(--yellow)}
+.green{color: var(--green)}
+.orange{color: var(--orange)}
+.red{color: var(--red)}
+.blue{color: var(--blue)}
+.purple{color: var(--purple)}
 
 *{
     margin: 0;
@@ -20,8 +36,8 @@ button{
     cursor: pointer;
 }
 
-input, button{
-    background-color: var(--white);
+button, input{
+    background-color: transparent;
 }
 
 body{
@@ -30,4 +46,8 @@ body{
 
 ul{
     list-style: none;
+}
+
+img{
+    user-select: none;
 }

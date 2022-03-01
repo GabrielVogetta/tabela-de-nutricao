@@ -7,18 +7,19 @@ import ModalProvider, {useModal} from './context/Modal';
 import PatientsProvider from './context/Patients';
 import SearchProvider from './context/Search';
 import plusSVG from './assets/plus.svg';
+import SearchInfosProvider from './context/SearchInfos';
 
 function AddPatientButton(){
 
   const {setModal} = useModal();
 
   return(
-    <button onClick={() => {
-
-      setModal({isOpen: true, func: 'Adicionar', name: '', weight: '', height: '', id: ''});
-
-    }} className='add-button'>
-      
+    <button 
+      onClick={() => {
+        setModal({isOpen: true, func: 'Adicionar', name: '', weight: '', height: '', id: ''});
+      }} 
+      className='add-button'
+    >  
       <img src={plusSVG} alt='Adicionar paciente' width={'50%'}/>
     
     </button>
@@ -36,14 +37,15 @@ function App() {
 
         <PatientsProvider>
           <SearchProvider>
-
-
-            <Patients/>
+            <SearchInfosProvider>
 
             <MainHeader onAdd={() => {setIsModalOpen(!isModalOpen)}}/>
+
+            <Patients/>
             
             <AddPersonModal isOpen={isModalOpen}/>
         
+            </SearchInfosProvider>
           </SearchProvider>
         </PatientsProvider>
 

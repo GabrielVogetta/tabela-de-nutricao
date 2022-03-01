@@ -8,23 +8,25 @@
     border-radius: 8px;
 }
 
-.patient_info{
+.patient-info{
     text-align: center;
     padding: 15px 0;
     font-size: 14px;
+    display: flex;
+    flex-direction: column;
 }
 
-.patient_info span{
+.patient-info span{
     font-size: 10px;
 }
 
 @media (min-width: 600px){
-    .patient_info{
+    .patient-info{
         font-size: 20px;
         width: 25%;
     }
 
-    .patient_info span{
+    .patient-info span{
         font-size: 14px;
     }
 }

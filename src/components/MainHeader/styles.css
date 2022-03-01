@@ -2,30 +2,103 @@
   background-color: var(--secondary);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
+  padding: 10px 10px;
   position: fixed;
   width: 100%;
+  height: 60px;
   top: 0;
-  z-index: 999;
+  z-index: 950;
 }
+
+
+/* INFO */
+.info-button{
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+}
+
+.info-button img{
+  width: 100%;
+  height: 100%;
+}
+
+.info{
+  width: 270px;
+  position: fixed;
+  height: fit-content;
+  background-color: var(--secondary);
+  top: 60px;
+  left: 0;
+  padding: 20px;
+  transform: translateX(-270px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 0 0 8px 0;
+}
+
+.info-open{
+  transform: translateX(0px);
+}
+
+/* PAGE TITLE */
 
 .page-title{
-  font-size: 20px;
+  font-size: 16px;
 }
 
-.search-button{
-  padding: 10px;
-  background-color: var(--primary);
-}
-
-.search-input{
+/* ALPHABETICAL ORDER BUTTON */
+.alpha-order-button{
   background-color: var(--primary);
   padding: 10px;
   border-radius: 8px;
+  border-bottom: 3px solid white;
+  border-right: 2px solid white;
 }
 
+/* PACIENTS FILTER */
+.filter{
+  background-color: var(--primary);
+  display: flex;
+  padding: 3px;
+  border-radius: 8px;
+}
 
+.select{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-label{
+  font-size: 10px;
+}
+
+select{
+  background-color: transparent;
+  padding: 5px 15px;
+  outline: 0;
+}
+
+option{
+  color: var(--secondary);
+  background-color: var(--white);
+}
+
+.search-input{
+  padding: 10px;
+  border-radius: 8px;
+  outline: 0;
+}
+
+.search-button{
+  background-color: var(--primary);
+  padding: 5px;
+  border-radius: 8px;
+}
+
+/* MEDIA QUERIES */
 
 @media (min-width: 600px) {
   .main-header{

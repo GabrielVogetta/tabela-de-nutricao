@@ -3,6 +3,9 @@ import "./styles.css";
 import { useModal } from "../../context/Modal";
 import { usePatients } from '../../context/Patients';
 import {supabase} from '../../services/supabase';
+import closeSVG from '../../assets/close-dark.svg';
+import PatientDetails from '../PatientDetails';
+import { calculateBmi } from "../../utils";
 
 export default function AddPersonModal() {
 
@@ -19,12 +22,6 @@ export default function AddPersonModal() {
     setHeight(modal.height);
   }, [modal])
 
-  const calculateBmi = () => {
-    const bmi = weight / Math.pow(height, 2);
-    return bmi;
-  }
-
-
   const updatePatient = async (id) => {
     const { data, error } = await supabase
     .from('patients')
@@ -32,7 +29,7 @@ export default function AddPersonModal() {
       name,
       weight,
       height,
-      bmi: calculateBmi().toFixed(2)
+      bmi: calculateBmi(weight, height)
     })
     .match({ id: id })
 
@@ -49,7 +46,7 @@ export default function AddPersonModal() {
     const { data, error } = await supabase
       .from('patients')
       .insert([
-        {name, weight, height, bmi: calculateBmi().toFixed(2)}
+        {name, weight, height, bmi: calculateBmi(weight, height)}
     ])
 
     if(error){
@@ -64,76 +61,99 @@ export default function AddPersonModal() {
   return (
     <div className="add-person-modal" style={{display: modal.isOpen ? 'block' : 'none'}}>
 
-      <button className='close-modal-button'
-        onClick={() => {setModal({...modal, isOpen: false})}}
-      >
-        Close
-      </button>
+      { modal.func !== 'Visualizar' &&
+        <>
+          <button className='close-modal-button'
+            onClick={() => {setModal({...modal, isOpen: false})}}
+          >
+            <img src={closeSVG} alt='Fechar janela'/>
+          </button>
 
-      <form className="add-person-form" onSubmit={async e => {
-        e.preventDefault();
-        const bmi = calculateBmi().toFixed(2);
+          <form className="add-person-form" onSubmit={async e => {
+            e.preventDefault();
+            const bmi = calculateBmi(weight, height);
 
-        if(modal.func === 'Adicionar'){
+            if(modal.func === 'Adicionar'){
 
-          //INSERT
-          setPatients([...patients, {name, weight, height, bmi}]);
+              //INSERT
+              setPatients([...patients, {name, weight, height, bmi}]);
 
-          insertPatient({name, weight, height, bmi});
-        
-        }else{
-
-          // UPDATE
-          const newState = patients.map((person, index) => {
-            if(person.id === modal.id){
-              return {name, weight, height, bmi};
+              insertPatient({name, weight, height, bmi});
+            
             }else{
-              return person;
+
+              // UPDATE
+              const newState = patients.map((person, index) => {
+                if(person.id === modal.id){
+                  return {name, weight, height, bmi};
+                }else{
+                  return person;
+                }
+              });
+
+              updatePatient(modal.id);
+              setPatients(newState);
             }
-          });
 
-          updatePatient(modal.id);
-          setPatients(newState);
-        }
+            setModal({...modal, isOpen: false});
 
-        setModal({...modal, isOpen: false});
+          }}>
+            <input
+              name="name"
+              className="new-person-input"
+              placeholder="Nome"
+              type='text'
+              value={name}
+              onChange={e => {setName(e.target.value)}}
+            />
+            <input
+              value={weight}
+              name="weight"
+              type='number'
+              step="any"
+              required
+              className="new-person-input"
+              placeholder="Peso kg"
+              onChange={e => {setWeight(e.target.value)}}
+            />
+            <input
+              value={height}
+              name="height"
+              type='number'
+              step="any"
+              required
+              className="new-person-input"
+              placeholder="Altura m"
+              onChange={e => {setHeight(e.target.value)}}
+            />
+            <button
+              type="submit"
+              className="add-person-button"
+            >
+              {modal.func}
+            </button>
+          </form>
+        </>
+      }
 
-      }}>
-        <input
-          name="name"
-          className="new-person-input"
-          placeholder="Nome"
-          type='text'
-          value={name}
-          onChange={e => {setName(e.target.value)}}
-        />
-        <input
-          value={weight}
-          name="weight"
-          type='number'
-          step="any"
-          required
-          className="new-person-input"
-          placeholder="Peso kg"
-          onChange={e => {setWeight(e.target.value)}}
-        />
-        <input
-          value={height}
-          name="height"
-          type='number'
-          step="any"
-          required
-          className="new-person-input"
-          placeholder="Altura m"
-          onChange={e => {setHeight(e.target.value)}}
-        />
-        <button
-          type="submit"
-          className="add-person-button"
-        >
-          {modal.func}
-        </button>
-      </form>
+      {
+        modal.func === 'Visualizar' &&
+
+        <>
+          <button className='close-modal-button'
+            onClick={() => {setModal({...modal, isOpen: false})}}
+          >
+            <img src={closeSVG} alt='Fechar janela'/>
+          </button>
+
+          <PatientDetails
+            name={name}
+            weight={weight}
+            height={height}
+            bmi={calculateBmi(weight, height)}
+          />
+        </>
+      }
     </div>
   );
 }

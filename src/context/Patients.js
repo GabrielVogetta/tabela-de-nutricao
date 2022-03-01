@@ -13,7 +13,16 @@ export default function PatientsProvider({children}){
 
     const getPatients = async () => {
         const { data } = await supabase.from('patients').select();
-        setPatients(data);
+        const finalData = data.map(current => {
+            return {
+                id: current.id,
+                name: current.name,
+                weight: current.weight.toFixed(2),
+                height: current.height.toFixed(2),
+                bmi: current.bmi.toFixed(2)
+            }
+        })
+        setPatients(finalData);
     };
     
     return(

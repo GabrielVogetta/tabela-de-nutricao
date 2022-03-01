@@ -1,38 +1,43 @@
 import React from "react";
 import "./styles.css";
 import Tooltip from '../../components/Tooltip';
+import { colorSetter } from "../../utils";
 
-export default function Patient({ name, weight, height, bmi, id }) {  
+export default function Patient({ name, weight, height, bmi, id }) { 
 
   return (
     <div className='patient'>
 
-      <Tooltip
-        name={name}
-        weight={weight}
-        height={height}
-        id={id}
-      />
+        <Tooltip
+          name={name}
+          weight={weight}
+          height={height}
+          id={id}
+        />
 
-      <div className='patient_info'>
-        <span>Nome</span>  
-        <p>{name}</p>
-      </div>
+        <div className='patient-info'>
+          <span>Nome</span>  
+          <p>{name}</p>
+        </div>
 
-      <div className='patient_info'>
-        <span>Peso (kg)</span>  
-        <p>{weight}</p>
-      </div>
-       
-      <div className='patient_info'>
-        <span>Altura (m)</span>  
-        <p>{height}</p>
-      </div>
+        <div className='patient-info'>
+          <span>Peso (kg)</span>
+          <p>{weight}</p>
+        </div>
+        
+        <div className='patient-info'>
+          <span>Altura (m)</span>  
+          <p>{height}</p>
+        </div>
 
-      <div className='patient_info'>
-        <span>Imc</span>  
-        <p>{bmi}</p>
-      </div>
+        <div className='patient-info'>
+          <span>Imc</span>  
+          <p style={{
+            color: colorSetter(bmi)
+          }}>
+            {bmi}
+          </p>
+        </div>
 
       </div>
   );
