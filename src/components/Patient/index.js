@@ -12,6 +12,7 @@ export default function Patient({ name, weight, height, bmi, id }) {
           name={name}
           weight={weight}
           height={height}
+          bmi={bmi}
           id={id}
         />
 

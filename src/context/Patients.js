@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import {supabase} from '../services/supabase';
+import supabaseApi from '../api';
 
 const PatientsContext = createContext([]);
 
@@ -12,8 +12,10 @@ export default function PatientsProvider({children}){
     }, []);
 
     const getPatients = async () => {
-        const { data } = await supabase.from('patients').select();
-        const finalData = data.map(current => {
+
+        const res = await supabaseApi.getPatients();
+
+        const data = res.data.map(current => {
             return {
                 id: current.id,
                 name: current.name,
@@ -22,7 +24,8 @@ export default function PatientsProvider({children}){
                 bmi: current.bmi.toFixed(2)
             }
         })
-        setPatients(finalData);
+
+        setPatients(data);
     };
     
     return(

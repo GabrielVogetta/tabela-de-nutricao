@@ -1,0 +1,23 @@
+.patient-adder{
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.patient-adder .close-button{
+    align-self: flex-start;
+}
+
+@media (min-width: 600px){
+    .patient-adder{
+        width: 500px;
+        height: 300px;
+        padding: 10px;
+        background-color: var(--primary);
+        border-radius: 10px;
+    }
+
+}

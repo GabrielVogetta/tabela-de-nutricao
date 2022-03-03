@@ -1,0 +1,24 @@
+.form{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.form-input, .submit-button{
+    padding: 10px;
+    background-color: var(--white);
+    color: var(--primary);
+    border-radius: 8px;
+    width: 100%;
+}
+
+@media(min-width: 600px){
+    .form{
+        width: 80%;
+        gap: 20px;
+    }
+}

@@ -1,16 +1,25 @@
 import './styles.css';
 import { calculateIdealWeight, colorSetter } from '../../utils';
+import Modal from '../Modal';
+import closeSVG from '../../assets/close-dark.svg';
 
-export default function PatientDetails({name, weight, height, bmi}){
+export default function PatientDetails({name, weight, height, bmi, onClose}){
 
     return( 
+        <Modal>
             <div className='patient-details_box'>
+
+                <button className='close-button' onClick={onClose}>
+                    <img src={closeSVG} alt='Fechar janela'/>
+                </button>
+
+
                 <div>
                     <span>Nome</span>
                     <h3>{name}</h3>
                 </div>
-
-                <div className='patient-info'>
+                
+                <div className='patient-details_patient-info'>
 
                     <div>
                         <span>Peso</span>
@@ -27,7 +36,7 @@ export default function PatientDetails({name, weight, height, bmi}){
 
                 </div>
 
-                <div className='weight-good'>
+                <div className='patient-details_weight-details'>
                     <p>
                         Seu peso ideal é de <span className='green'> {calculateIdealWeight(weight, bmi)[1]} </span> kg
                     </p>
@@ -40,5 +49,6 @@ export default function PatientDetails({name, weight, height, bmi}){
                     </p>
                 </div>
             </div>
+        </Modal>
     );
 }

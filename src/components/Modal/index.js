@@ -1,13 +1,9 @@
-import './styles.css';
+import "./styles.css";
 
-export default function Modal({children, isOpen, style}){
-    return(
-        <>
-            {isOpen &&
-                <div className='modal' style={style}>
-                    {children}
-                </div>
-            }
-        </>
-    );
+export default function Modal({children}) {
+  return (
+    <div className="modal">
+        {children}
+    </div>
+  );
 }

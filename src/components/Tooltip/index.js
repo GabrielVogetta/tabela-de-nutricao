@@ -1,14 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import menuSVG from '../../assets/menu.svg';
 import './styles.css';
-import {useModal} from '../../context/Modal';
 import {usePatients} from '../../context/Patients';
-import { supabase } from "../../services/supabase";
+import supabaseApi from '../../api';
+import PatientEditor from '../PatientEditor';
+import PatientDetails from '../PatientDetails';
 
-export default function Tooltip({name, weight, height, id}) {
+export default function Tooltip({name, weight, height, bmi, id}) {
   
-  const {setModal} = useModal();
   const {patients, setPatients} = usePatients();
+
+  const [isEditorOpen, setIsEditorOpen] = useState(false); 
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false); 
   
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,17 +40,40 @@ export default function Tooltip({name, weight, height, id}) {
     const newPatients = patients.filter(person => person.id !== id);
     setPatients(newPatients);
 
-    const { error } = await supabase
-    .from('patients')
-    .delete()
-    .match({ id: id });
-
-    if(error){
+    const res = await supabaseApi.deletePatient(id); 
+    
+    if(res.error){
       alert('Houve algum erro ;-; tente novamente mais tarde');
     }
   };
 
   return (
+    <>
+
+      {
+        isEditorOpen &&
+        <PatientEditor
+          name={name}
+          weight={weight}
+          height={height}
+          id={id}
+          onClose={() => {
+            setIsEditorOpen(false);
+          }}
+        />
+      }{
+        isDetailsOpen && 
+        <PatientDetails
+          name={name}
+          weight={weight}
+          height={height}
+          bmi={bmi}
+          onClose={() => {
+            setIsDetailsOpen(false);
+          }}
+        />
+      }
+
       <div className='opts' ref={tooltipRef}>
 
         <button
@@ -67,7 +93,7 @@ export default function Tooltip({name, weight, height, id}) {
             <button 
               className="tooltip-button" 
               onClick={() => {
-                setModal({ isOpen: true, func: "Visualizar", name: name, weight: weight, height: height, id: id});
+                setIsDetailsOpen(true);
                 setIsOpen(false);
               }}>
 
@@ -77,7 +103,7 @@ export default function Tooltip({name, weight, height, id}) {
             <button
               className="tooltip-button"
               onClick={() => {
-                setModal({ isOpen: true, func: "Editar", name: name, weight: weight, height: height, id: id});
+                setIsEditorOpen(true);
                 setIsOpen(false);
               }}
             >
@@ -89,5 +115,6 @@ export default function Tooltip({name, weight, height, id}) {
             </button>
           </div> 
       </div>
+    </>
   );
 }
